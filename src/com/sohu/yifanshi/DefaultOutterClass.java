@@ -17,7 +17,7 @@ public class DefaultOutterClass {
     {
         System.out.println(new InnerClass().x);//外部类需要通过内部类的对象访问内部类的所有成员变量/方法。
     }
-    class InnerClass extends TestStaticFatherClass{
+    class InnerClass extends TestStaticFatherClass implements TestIntefaceClass{
         static final int x = 2;
         //static int a = 1;成员内部类只能出现static的常量。
         /*public void static say()
@@ -25,7 +25,7 @@ public class DefaultOutterClass {
             System.out.println();
         } 成员内部类不能出现static方法。但是可以继承有static方法的父类.成员内部类是依附于外围类的，
         所以，只有先创建了外围类对象才能够创建内部类对象。也正是由于这个原因，成员内部类也不能含有 static 的变量和方法*/
-        public void print()
+        public void printl()
         {
             System.out.println(DefaultOutterClass.this.outPrivateField);//在成员内部类使用外部类对象时，使用 outer.this 来表示外部类对象；
             System.out.println(outPublicField);
@@ -39,6 +39,10 @@ public class DefaultOutterClass {
             System.out.println(method+"runed");
         }
 
+        @Override
+        public void print() {
+
+        }
     }
 
 
@@ -49,7 +53,16 @@ public class DefaultOutterClass {
         return new PrivateInnerClass();
     }
     private class PrivateInnerClass extends TestStaticFatherClass{
+        public int anInt = 2;
+        String name = "PrivateInnerClass";
 
+        public int getAnInt() {
+            return anInt;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
 
 
@@ -61,8 +74,11 @@ public class DefaultOutterClass {
         //为了隐藏起信息，而特意设置为私有的。
         //开头的 Out 是为了标明需要生成的内部类对象在哪个外部类当中；必须先有外部类的对象才能生成内部类的对象。
         PrivateInnerClass privateInnerClass = defaultOutterClass.getPrivateInnserClass();
+        privateInnerClass.getName();
+        //privateInnerClass.anInt;当内部类为被私有修饰时，无法直接通过内部类的对象去访问其中的成员了。即使是public成员也不行。
+        //只能通过方法去访问内部类的成员
         innerClass.say();
-        innerClass.print();
+        innerClass.printl();
         innerClass.innerPrivatefun();
     }
 }
