@@ -31,6 +31,7 @@ public class NoNameOutterClass {
 
                 //System.out.println(name);name为加则final报错
                 System.out.println(city);
+                System.out.println("ccc");
             }
         };
     }
